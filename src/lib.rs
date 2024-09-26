@@ -1,16 +1,20 @@
+use quote::ToTokens;
+
 mod dfa;
 
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+/// How to define marco?
+///
+#[proc_macro]
+pub fn define(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    let input = proc_macro2::TokenStream::from(input);
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+    for token in input {
+        match token {
+            (any) => {
+                println!("{:?}", any);
+            }
+        }
     }
+
+    "println!(\"\")".parse().unwrap()
 }
